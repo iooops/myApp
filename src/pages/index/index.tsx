@@ -3,7 +3,8 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 
-import { add, minus, asyncAdd } from '../../actions/counter'
+// import { add, minus, asyncAdd } from '../../actions/counter'
+import { addToCart, removeFromCart } from '../../actions/cart'
 
 import './index.scss'
 import Header from '../../components/index/header/header'
@@ -41,19 +42,16 @@ import Content from '../../components/index/content/content'
 //   props: IProps;
 // }
 
-// @connect(({ counter }) => ({
-//   counter
-// }), (dispatch) => ({
-//   add () {
-//     dispatch(add())
-//   },
-//   dec () {
-//     dispatch(minus())
-//   },
-//   asyncAdd () {
-//     dispatch(asyncAdd())
-//   }
-// }))
+@connect(({ cart }) => ({
+  cart
+}), (dispatch) => ({
+  addToCart (id) {
+    dispatch(addToCart(id))
+  },
+  removeFromCart (id) {
+    dispatch(removeFromCart(id))
+  },
+}))
 class Index extends Component {
 
     /**
@@ -117,16 +115,4 @@ class Index extends Component {
 // 这样在使用这个子类时 Ts 才不会提示缺少 JSX 类型参数错误
 //
 // #endregion
-export default connect (({ counter }) => ({
-  counter: counter
-}), (dispatch) => ({
-  add () {
-    dispatch(add())
-  },
-  dec () {
-    dispatch(minus())
-  },
-  asyncAdd () {
-    dispatch(asyncAdd())
-  }
-}))(Index)
+export default Index

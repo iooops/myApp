@@ -4,50 +4,30 @@ import './order.scss'
 import { AtIcon, AtButton } from 'taro-ui'
 import { menuList } from '../../../menuList'
 import { addToCart, removeFromCart } from '../../../actions/cart'
-import { add, minus, asyncAdd } from '../../../actions/counter'
 import { connect } from '@tarojs/redux'
-import store from '../../../store'
 
-// @connect(({ counter }) => ({
-//   counter
-// }), (dispatch) => ({
-//   addToCart (id) {
-//     dispatch(addToCart(id))
-//   },
-//   removeFromCart (id) {
-//     dispatch(removeFromCart(id))
-//   },
-// }))
+@connect(({ cart }) => ({
+  cart
+}), (dispatch) => ({
+  addToCart (id) {
+    dispatch(addToCart(id))
+  },
+  removeFromCart (id) {
+    dispatch(removeFromCart(id))
+  },
+}))
 class Order extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       selected: 'order',
       selectedCatList: menuList[0]
     }
     this.setTab = this.setTab.bind(this);
     this.setCatList = this.setCatList.bind(this);
+    this.getCount = this.getCount.bind(this);
+    this.getSum = this.getSum.bind(this);
   }
-
-  componentWillMount () {
-    // console.log(this.$router.params)
-  }
-
-  componentDidMount () {
-    console.log(this.props)
-    console.log(store().getState())
-  }
-
-  componentWillReceiveProps (nextProps) {
-    console.log(this.props)
-    console.log(nextProps)
-  }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
 
   setTab(tab) {
     this.setState({ selected: tab });
@@ -58,8 +38,23 @@ class Order extends Component {
     this.setState({ selectedCatList: catList });
   }
 
+  getCount(id) {
+    return this.props.cart.reduce((a, c)=> a+(c===id), 0);
+  }
+
+  getSum() {
+    let { cart } = this.props;
+    let priceList = {};
+    for (let i = 0; i < menuList.length; i++) {
+      for (let j = 0; j < menuList[i].items.length; j++) {
+        
+      }
+    }
+  }
+
   render () {
     const { selectedCatList } = this.state;
+    const { cart } = this.props;
 
     return (
       <View className="order">
@@ -85,9 +80,15 @@ class Order extends Component {
                     <View className="pc">
                       <Text className="price">￥{it.price}</Text>
                       <View className="countContainer">
-                        <AtIcon className="icon" value='subtract-circle' size='12' color='#555555'></AtIcon>
-                        <Text className="count">0</Text>
-                        <AtIcon className="icon" value='add-circle' size='12' color='#555555'></AtIcon>
+                        <View style={{visibility: this.getCount(it.id)===0? 'hidden': 'visible'}}>
+                          <AtIcon className="icon" value='subtract-circle' size='12' color='#e63939'
+                            onClick={()=>this.props.removeFromCart(it.id)}></AtIcon>
+                        </View>
+                        <View className="countWrapper" style={{visibility: this.getCount(it.id)===0? 'hidden': 'visible'}}>
+                          <Text className="count">{this.getCount(it.id)}</Text>
+                        </View>
+                        <AtIcon className="icon" value='add-circle' size='12' color='#e63939'
+                          onClick={()=>this.props.addToCart(it.id)}></AtIcon>
                       </View>
                     </View>
                   </View>
@@ -100,9 +101,12 @@ class Order extends Component {
           <View className="sumLeft">
             <View className="countIcon">
               <AtIcon className="icon" value='shopping-bag' size='14' color='#FFF'></AtIcon>
+              <View className="numItemsWrapper">
+                <Text className="numItems">{cart.length}</Text>              
+              </View>
             </View>
             <View className="priceSum">
-              <Text className="sumText">合计：</Text>
+              <Text className="sumText">合计：{this.getSum()}</Text>
               <Text className="totalText">￥</Text>
             </View>
           </View>
@@ -113,13 +117,4 @@ class Order extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  counter: state.counter
-});
-
-const mapDispatchToProps = dispatch => ({
-  addToCart: (id) => dispatch(addToCart(id)), 
-  removeFromCart: (id) => dispatch(removeFromCart(id))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Order);
+export default Order;

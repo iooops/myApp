@@ -58,8 +58,19 @@
 	flex-direction: row;
 }
 
-.count {
+.countContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.countWrapper {
+	width: 10PX;	
 	padding: 0 15PX;
+	text-align: center;
+}
+
+.count {
 	align-self: center;
 	font-size: 12PX;
 	color: #555555;
@@ -109,10 +120,30 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	position: relative;
 }
 
 .icon {
 	border: 1px solid black;
+	align-self: center;
+}
+
+.numItemsWrapper {
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: white;
+	background-color: orange;
+	width: 12PX;
+	height: 12PX;
+	border-radius: 6PX; 	
+	text-align: center;
+	display: flex;
+	justify-content: center;
+}
+
+.numItems {
+	font-size: 8PX;
 	align-self: center;
 }
 

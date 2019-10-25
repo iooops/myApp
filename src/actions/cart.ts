@@ -3,15 +3,17 @@
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART
-} from '../constants/counter'
+} from '../constants/constants'
 
-export const addToCart = () => {
+export const addToCart = (id) => {
   return {
-    type: ADD_TO_CAT
+    type: ADD_TO_CART,
+    id
   }
 }
-export const removeFromCart = () => {
+export const removeFromCart = (id) => {
   return {
-    type: REMOVE_FROM_CART
+    type: REMOVE_FROM_CART,
+    id
   }
 }

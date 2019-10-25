@@ -7,9 +7,11 @@ export default function cart (state = [], action) {
       return [...state, action.id]
 
     case REMOVE_FROM_CART:
-      return state.splice(state.indexOf(action.id), 1)
+    	let ns = state.slice();
+      ns.splice(ns.indexOf(action.id), 1)
+      return ns
 
     default:
        return state
-  }
+	}
 }

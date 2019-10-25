@@ -13,6 +13,10 @@ export default class Content extends Component {
     this.setTab = this.setTab.bind(this);
   }
 
+  componentDidMount() {
+    console.log(this.props)
+  }
+
   setTab(tab) {
     this.setState({ selected: tab });
   }
