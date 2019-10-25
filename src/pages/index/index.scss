@@ -1,0 +1,17 @@
+.index {
+  flex-direction: column;
+  background-color: #e63939;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+	height: 90PX;
+}
+
+.content {
+	flex: 1;
+	background-color: #e63939;
+	position: relative;
+}

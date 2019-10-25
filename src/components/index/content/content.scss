@@ -1,0 +1,47 @@
+
+.content {
+	height: 100%;
+	width: 100%;
+	border-radius: 10PX 10PX 0 0;
+	background-color: #FFF;
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+}
+
+.tabs {
+	height: 22PX;
+	display: flex;
+	flex-direction: row;
+	padding: 15PX;
+	border-bottom: 1px solid #f2f2f2;
+}
+
+.order {
+	width: 50%;
+	border-right: 1px solid #f2f2f2;
+	text-align: center;
+}
+
+.myOrders {
+	flex: 1;
+	text-align: center;
+}
+
+.tabText {
+	font-size: 14PX; 
+	padding-left: 5PX;
+	color: #555555;
+}
+
+.shop {
+	flex: 1;
+	background-color: #FFF;
+	overflow: hidden;
+}
+
+.icon {
+	align-self: center;
+}
+
+
